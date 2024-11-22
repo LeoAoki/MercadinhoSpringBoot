@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produtos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Gerenciar Produtos</h1>
+
+<!-- Mensagem de feedback -->
+<div th:if="${mensagem}" th:classappend="'mensagem ' + (${mensagem.contains('Não é possível') ? 'erro' : 'sucesso'})">
+    <p th:text="${mensagem}"></p>
+</div>
+
+<!-- Formulário de criação/edição -->
+<form action="/produtos/salvar" method="post">
+    <input type="hidden" name="id" th:value="${produto.id}" />
+    <input type="text" name="nome" placeholder="Nome do Produto" th:value="${produto.nome}" required />
+    <input type="number" step="0.01" name="preco" placeholder="Preço" th:value="${produto.preco}" required />
+    <input type="number" name="quantidadeEmEstoque" placeholder="Quantidade em Estoque" th:value="${produto.quantidadeEmEstoque}" required />
+
+    <!-- Dropdown para selecionar categoria -->
+    <select name="categoria.id" required>
+        <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"
+                th:selected="${produto.categoria?.id == categoria.id}">
+            <!-- Exibe nome da categoria -->
+        </option>
+    </select>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<!-- Tabela de produtos -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Categoria</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="produto : ${produtos}">
+        <td th:text="${produto.id}"></td>
+        <td th:text="${produto.nome}"></td>
+        <td th:text="${produto.preco}"></td>
+        <td th:text="${produto.quantidadeEmEstoque}"></td>
+        <td th:text="${produto.categoria?.nome}"></td> <!-- Verifica se categoria não é nula -->
+        <td>
+            <a class="editar-link" th:href="@{/produtos/editar/{id}(id=${produto.id})}">Editar</a>
+            <a class="deletar-link"  th:href="@{/produtos/deletar/{id}(id=${produto.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="back-link">Voltar</a>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Mercadinho do Aoki e do Gabriel. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>

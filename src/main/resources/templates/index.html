@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mercadinho do Aoki e do Rodrigues</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- Navbar -->
+<header class="navbar">
+    <div class="navbar-logo">Mercadinho do <span>Aoki</span> e do <span>Gabriel</span></div>
+</header>
+
+<!-- Banner Principal -->
+<section class="banner">
+    <h1>Bem-vindo ao <span>Mercadinho Premium</span></h1>
+    <p>O lugar perfeito para gerenciar seu negócio com sofisticação e elegância.</p>
+</section>
+
+<!-- Menu -->
+<section class="menu">
+    <ul>
+        <li><a th:href="@{/categorias}">Gerenciar Categorias</a></li>
+        <li><a th:href="@{/produtos}">Gerenciar Produtos</a></li>
+        <li><a th:href="@{/vendas}">Registrar Vendas</a></li>
+    </ul>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Mercadinho do Aoki e do Gabriel. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>

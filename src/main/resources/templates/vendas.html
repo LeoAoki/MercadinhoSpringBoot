@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vendas</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Registrar Venda</h1>
+
+<!-- Mensagem de feedback -->
+<div th:if="${mensagem}" th:classappend="'mensagem ' + (${mensagem.contains('insuficiente') ? 'erro' : 'sucesso'})">
+    <p th:text="${mensagem}"></p>
+</div>
+<!-- Formulário de registro -->
+<form action="/vendas/salvar" method="post">
+    <label for="produto">Produto:</label>
+    <select id="produto" name="produto.id" required>
+        <option value="">Selecione um produto</option>
+        <option th:each="produto : ${produtos}" th:value="${produto.id}" th:text="${produto.nome}"></option>
+    </select>
+
+    <label for="quantidade">Quantidade:</label>
+    <input id="quantidade" type="number" name="quantidade" placeholder="Quantidade" required />
+
+    <button type="submit">Registrar</button>
+</form>
+
+<!-- Histórico de vendas -->
+<h2>Histórico de Vendas</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Data</th>
+        <th>Valor Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="venda : ${vendas}">
+        <td th:text="${venda.id}"></td>
+        <td th:text="${venda.produto.nome}"></td>
+        <td th:text="${venda.quantidade}"></td>
+        <td th:text="${#temporals.format(venda.data, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${venda.valorTotal}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="back-link">Voltar</a>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Mercadinho do Aoki e do Gabriel. Todos os direitos reservados.</p>
+</footer>
+</body>

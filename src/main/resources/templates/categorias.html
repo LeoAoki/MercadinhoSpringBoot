@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categorias</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Gerenciar Categorias</h1>
+
+<!-- Mensagem de feedback -->
+<div th:if="${mensagem}" th:classappend="'mensagem ' + (${mensagem.contains('Não é possível') ? 'erro' : 'sucesso'})">
+    <p th:text="${mensagem}"></p>
+</div>
+
+<!-- Formulário de criação/edição -->
+<form action="/categorias/salvar" method="post">
+    <input type="hidden" name="id" th:value="${categoria.id}" />
+    <input type="text" name="nome" placeholder="Nome da Categoria" th:value="${categoria.nome}" required />
+    <button type="submit">Salvar</button>
+</form>
+
+<!-- Lista de categorias -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="categoria : ${categorias}">
+        <td th:text="${categoria.id}"></td>
+        <td th:text="${categoria.nome}"></td>
+        <td>
+            <a class="editar-link" th:href="@{/categorias/editar/{id}(id=${categoria.id})}">Editar</a>
+            <a class="deletar-link" th:href="@{/categorias/deletar/{id}(id=${categoria.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="back-link">Voltar</a>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Mercadinho do Aoki e do Gabriel. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>
